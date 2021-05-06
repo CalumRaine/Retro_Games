@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
+
+enum boolean {FALSE=0, TRUE=1};
 
 struct snakePos{
 	int x;	
@@ -9,13 +12,13 @@ struct snakePos{
 };
 
 int main(){	
-	srand(0);
+	srand(time(NULL));
 	initscr();			// Start curses mode 		  
 	cbreak();			// make input characters immediately available (no buffering)
 	nodelay(stdscr,1);
 	noecho();			// do not print input characters to the screen
 	keypad(stdscr,1);		// make the arrow keys work
-	curs_set(0);
+	curs_set(FALSE);
 	attron(A_BOLD);
 	
 	// INITIALISE COLOUR
@@ -26,8 +29,9 @@ int main(){
 	init_pair(3,COLOR_MAGENTA,COLOR_MAGENTA);
 	init_pair(4,COLOR_CYAN,COLOR_CYAN);
 	init_pair(5,COLOR_YELLOW,COLOR_YELLOW);
-	int snakeColour=(rand()%5)+1, foodColour=(rand()%5)+1;
+	int snakeColour=1, foodColour=2;
 
+	// FIND SCREEN BOUNDARIES
 	int maxX=0, maxY=0;
 	getmaxyx(stdscr,maxY,maxX);
 
